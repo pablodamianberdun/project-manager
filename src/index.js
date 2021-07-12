@@ -1,9 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { ThemeProvider } from "styled-components";
+import theme from "./theme/theme";
+import GlobalStyles from "./theme/globalStyles";
+import Router from "./router";
 
 ReactDOM.render(
     <React.StrictMode>
-        <h1>Project Manager</h1>
+        <ThemeProvider theme={theme}>
+            <GlobalStyles />
+            <Router />
+        </ThemeProvider>
     </React.StrictMode>,
     document.getElementById("root")
 );
