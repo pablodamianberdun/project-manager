@@ -5,14 +5,12 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-	box-shadow: 0 0.125rem 0.625rem 0 rgb(0 0 0 / 20%);
-	padding: 20px;
-	border-radius: 1rem;
+    box-shadow: 0 0.125rem 0.625rem 0 rgb(0 0 0 / 20%);
+    padding: 20px;
+    border-radius: 1rem;
 `;
 
-export const FormContainer = styled.div`
-
-`;
+export const FormContainer = styled.div``;
 
 export const Title = styled.h3`
     text-align: center;
@@ -41,7 +39,7 @@ export const Button = styled.button`
     width: 100%;
     border: none;
     border-radius: 20px;
-	font-weight: bold;
+    font-weight: bold;
     background-color: ${(props) => props.theme.colors.darkBlue};
     color: ${(props) => props.theme.colors.light};
     padding: 10px;

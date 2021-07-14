@@ -1,4 +1,9 @@
 import styled from "styled-components";
+import { MdMenu, MdClose } from "react-icons/md";
+
+export const Aside = styled.aside`
+    position: fixed;
+`;
 
 export const Container = styled.div`
     height: 100vh;
@@ -33,20 +38,18 @@ export const Form = styled.form`
 
 export const Input = styled.input`
     width: 100%;
-    height: 30px;
-    margin-bottom: 10px;
-    padding: 0 10px;
+    padding: 10px;
+    border-radius: 20px;
     border: none;
-    border-radius: 5px;
     outline: none;
+    margin-bottom: 10px;
 `;
 
 export const Button = styled.button`
     width: 100%;
-    width: 100%;
-    height: 30px;
+    padding: 10px;
     margin-bottom: 10px;
-    border-radius: 5px;
+    border-radius: 20px;
     border: none;
     background-color: ${(props) => props.theme.colors.lightBlue};
     color: white;
@@ -66,7 +69,7 @@ export const LogOutButton = styled.button`
     background-color: darkred;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     padding: 7px 20px;
     font-weight: bold;
 
@@ -76,5 +79,34 @@ export const LogOutButton = styled.button`
 
     &:hover {
         cursor: pointer;
+    }
+`;
+
+export const MenuIcon = styled(MdMenu)`
+    font-size: 40px;
+    color: ${(props) => props.theme.colors.darkBlue};
+    &:hover {
+        cursor: pointer;
+    }
+    position: absolute;
+    top: 10px;
+    left: 10px;
+
+    @media (min-width: 768px) {
+        display: none;
+    }
+`;
+
+export const CloseIcon = styled(MdClose)`
+    font-size: 40px;
+    &:hover {
+        cursor: pointer;
+    }
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    @media (min-width: 768px) {
+        display: none;
     }
 `;

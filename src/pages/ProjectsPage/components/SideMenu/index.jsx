@@ -1,5 +1,6 @@
 import React from "react";
 import {
+    Aside,
     Button,
     Container,
     Form,
@@ -10,7 +11,10 @@ import {
     LogOutButton,
     Title,
     UserName,
+    MenuIcon,
+    CloseIcon,
 } from "./styled";
+import { useMediaQuery } from "beautiful-react-hooks";
 
 const NewProject = () => {
     const [project, setProject] = React.useState({
@@ -43,18 +47,39 @@ const NewProject = () => {
     );
 };
 
-const SideMenu = () => {
+const Menu = ({ setShowMenu }) => {
     return (
-        <Container>
-            <Title>Project Manager</Title>
-            <NewProject />
-            <Heading>Your Projects</Heading>
-            <List>
-                <ListItem>No projects found</ListItem>
-            </List>
-            <UserName>User....</UserName>
-            <LogOutButton>Log Out</LogOutButton>
-        </Container>
+        <Aside>
+            <Container>
+                <CloseIcon onClick={() => setShowMenu(false)} />
+                <Title>Project Manager</Title>
+                <NewProject />
+                <Heading>Your Projects</Heading>
+                <List>
+                    <ListItem>No projects found</ListItem>
+                </List>
+                <UserName>User....</UserName>
+                <LogOutButton>Log Out</LogOutButton>
+            </Container>
+        </Aside>
+    );
+};
+
+const SideMenu = () => {
+    const [showMenu, setShowMenu] = React.useState(false);
+    const isSmall = useMediaQuery("(max-width: 768px)");
+
+    return (
+        <React.Fragment>
+            {isSmall ? (
+                <>
+                    <MenuIcon onClick={() => setShowMenu(true)} />
+                    {showMenu ? <Menu setShowMenu={setShowMenu} /> : null}
+                </>
+            ) : (
+                <Menu />
+            )}
+        </React.Fragment>
     );
 };
 
