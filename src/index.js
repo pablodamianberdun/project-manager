@@ -4,13 +4,16 @@ import { ThemeProvider } from "styled-components";
 import theme from "./theme/theme";
 import GlobalStyles from "./theme/globalStyles";
 import Router from "./router";
+import ProjectState from "./context/projects/state";
 
 ReactDOM.render(
     <React.StrictMode>
-        <ThemeProvider theme={theme}>
-            <GlobalStyles />
-            <Router />
-        </ThemeProvider>
+        <ProjectState>
+            <ThemeProvider theme={theme}>
+                <GlobalStyles />
+                <Router />
+            </ThemeProvider>
+        </ProjectState>
     </React.StrictMode>,
     document.getElementById("root")
 );

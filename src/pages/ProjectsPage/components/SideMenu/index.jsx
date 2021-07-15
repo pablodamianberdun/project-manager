@@ -7,7 +7,7 @@ import {
     Heading,
     Input,
     List,
-    ListItem,
+    ListItemButton,
     LogOutButton,
     Title,
     UserName,
@@ -15,6 +15,7 @@ import {
     CloseIcon,
 } from "./styled";
 import { useMediaQuery } from "beautiful-react-hooks";
+import projectContext from "../../../../context/projects/context";
 
 const NewProject = () => {
     const [project, setProject] = React.useState({
@@ -47,6 +48,24 @@ const NewProject = () => {
     );
 };
 
+const ProjectsList = () => {
+    const { projects, getProjects } = React.useContext(projectContext);
+    React.useEffect(() => {
+        getProjects();
+    }, []);
+
+    if (projects.lenght === 0) return null;
+    return (
+        <List>
+            {projects.map((project, index) => (
+                <ListItemButton type="button" key={index}>
+                    {project.name}
+                </ListItemButton>
+            ))}
+        </List>
+    );
+};
+
 const Menu = ({ setShowMenu }) => {
     return (
         <Aside>
@@ -55,9 +74,7 @@ const Menu = ({ setShowMenu }) => {
                 <Title>Project Manager</Title>
                 <NewProject />
                 <Heading>Your Projects</Heading>
-                <List>
-                    <ListItem>No projects found</ListItem>
-                </List>
+                <ProjectsList />
                 <UserName>User....</UserName>
                 <LogOutButton>Log Out</LogOutButton>
             </Container>

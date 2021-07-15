@@ -56,8 +56,8 @@ const TasksList = () => {
         <>
             <Heading>Project Name</Heading>
             <List>
-                {tasks.map((task) => (
-                    <ListItem>
+                {tasks.map((task, index) => (
+                    <ListItem key={index}>
                         <Flex>
                             {task.status ? (
                                 <MdCheckCircle style={CheckBoxStyles} />

@@ -24,11 +24,19 @@ export const Heading = styled.h2`
     margin-bottom: 20px;
 `;
 
-export const List = styled.ul``;
+export const List = styled.ul`
+    text-align: center;
+`;
 
-export const ListItem = styled.li`
+export const ListItemButton = styled.button`
+    background-color: ${(props) => props.theme.colors.darkBlue};
     color: white;
-    margin-bottom: 15px;
+    display: block;
+    margin: 0 auto 15px auto;
+    border: none;
+	&:hover{
+		cursor: pointer;
+	}
 `;
 
 export const Form = styled.form`
