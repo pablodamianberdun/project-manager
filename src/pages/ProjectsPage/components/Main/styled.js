@@ -23,7 +23,7 @@ export const Form = styled.form`
     text-align: center;
     padding: 20px;
     margin-top: 80px;
-    width: 40%;
+    width: 60%;
     border: solid 1px #eee;
     box-shadow: 0 2px 2px #ccc;
     border-radius: 10px;
@@ -74,7 +74,7 @@ export const ListItem = styled.li`
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 10px;
-    background-color: ${(props) => props.theme.colors.blue};
+    background-color: ${(props) => props.theme.colors.darkBlue};
     color: white;
     display: flex;
     justify-content: space-between;
@@ -107,3 +107,13 @@ export const CheckBoxStyles = {
     fontSize: "20px",
     cursor: "pointer",
 };
+
+export const Message = styled.p`
+    background-color: ${(props) => props.theme.colors.darkBlue};
+    color: white;
+    width: 90%;
+    padding: 10px;
+    margin-top: 80px;
+    border-radius: 10px;
+    text-align: center;
+`;

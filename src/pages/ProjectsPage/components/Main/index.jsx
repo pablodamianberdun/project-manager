@@ -1,5 +1,6 @@
 import React from "react";
 import { MdCheckCircle, MdRadioButtonUnchecked } from "react-icons/md";
+import projectContext from "../../../../context/projects/context";
 import {
     Button,
     Container,
@@ -14,6 +15,7 @@ import {
     Flex,
     Text,
     CheckBoxStyles,
+    Message,
 } from "./styled";
 
 const NewTaskForm = () => {
@@ -31,6 +33,7 @@ const NewTaskForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
     };
+
     return (
         <Form onSubmit={handleSubmit}>
             <Label>New Task:</Label>
@@ -46,7 +49,7 @@ const NewTaskForm = () => {
     );
 };
 
-const TasksList = () => {
+const TasksList = ({ projectName }) => {
     const tasks = [
         { name: "This is a task", status: false },
         { name: "This is another task", status: true },
@@ -54,7 +57,7 @@ const TasksList = () => {
 
     return (
         <>
-            <Heading>Project Name</Heading>
+            <Heading>{projectName}</Heading>
             <List>
                 {tasks.map((task, index) => (
                     <ListItem key={index}>
@@ -81,10 +84,18 @@ const TasksList = () => {
 };
 
 const Main = () => {
+    const { currentProject } = React.useContext(projectContext);
+
     return (
         <Container>
-            <NewTaskForm />
-            <TasksList />
+            {currentProject.name ? (
+                <>
+                    <NewTaskForm />
+                    <TasksList projectName={currentProject.name} />
+                </>
+            ) : (
+                <Message>Select a Project</Message>
+            )}
         </Container>
     );
 };

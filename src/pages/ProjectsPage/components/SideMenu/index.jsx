@@ -16,11 +16,14 @@ import {
 } from "./styled";
 import { useMediaQuery } from "beautiful-react-hooks";
 import projectContext from "../../../../context/projects/context";
+import { v4 as uuidv4 } from "uuid";
 
 const NewProject = () => {
     const [project, setProject] = React.useState({
         name: "",
     });
+
+    const { createProject } = React.useContext(projectContext);
 
     const handleChange = (e) => {
         setProject({
@@ -31,6 +34,12 @@ const NewProject = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (project.name.trim() === "") return;
+        project.id = uuidv4();
+        createProject(project);
+        setProject({
+            name: "",
+        });
     };
 
     return (
@@ -49,16 +58,22 @@ const NewProject = () => {
 };
 
 const ProjectsList = () => {
-    const { projects, getProjects } = React.useContext(projectContext);
+    const { projects, getProjects, setCurrentProject } = React.useContext(projectContext);
+
     React.useEffect(() => {
         getProjects();
     }, []);
 
     if (projects.lenght === 0) return null;
+
     return (
         <List>
             {projects.map((project, index) => (
-                <ListItemButton type="button" key={index}>
+                <ListItemButton
+                    type="button"
+                    key={index}
+                    onClick={() => setCurrentProject(project)}
+                >
                     {project.name}
                 </ListItemButton>
             ))}

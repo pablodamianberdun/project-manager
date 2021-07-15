@@ -1,4 +1,4 @@
-import { GET_PROJECTS } from "./types";
+import { CREATE_PROJECT, GET_PROJECTS, SET_CURRENT_PROJECT } from "./types";
 
 export default (state, action) => {
     switch (action.type) {
@@ -6,6 +6,16 @@ export default (state, action) => {
             return {
                 ...state,
                 projects: action.payload,
+            };
+        case CREATE_PROJECT:
+            return {
+                ...state,
+                projects: [...state.projects, action.payload],
+            };
+        case SET_CURRENT_PROJECT:
+            return {
+                ...state,
+                currentProject: action.payload,
             };
         default:
             return state;
