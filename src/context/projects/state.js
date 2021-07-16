@@ -1,13 +1,18 @@
 import React from "react";
 import projectContext from "./context";
 import projectReducer from "./reducer";
-import { CREATE_PROJECT, GET_PROJECTS, SET_CURRENT_PROJECT } from "./types";
+import {
+    CREATE_PROJECT,
+    DELETE_PROJECT,
+    GET_PROJECTS,
+    SET_CURRENT_PROJECT,
+} from "./types";
 
 const ProjectState = (props) => {
-    const projects = [{ name: "Project Manager" }, { name: "E-commerce" }];
+    const projects = [];
     const initialState = {
         projects: [],
-        currentProject: {},
+        currentProject: null,
     };
 
     const [state, dispatch] = React.useReducer(projectReducer, initialState);
@@ -33,6 +38,13 @@ const ProjectState = (props) => {
         });
     };
 
+    const deleteProject = (project) => {
+        dispatch({
+            type: DELETE_PROJECT,
+            payload: project,
+        });
+    };
+
     return (
         <projectContext.Provider
             value={{
@@ -41,6 +53,7 @@ const ProjectState = (props) => {
                 getProjects,
                 createProject,
                 setCurrentProject,
+                deleteProject,
             }}
         >
             {props.children}

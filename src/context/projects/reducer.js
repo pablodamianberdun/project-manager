@@ -1,6 +1,11 @@
-import { CREATE_PROJECT, GET_PROJECTS, SET_CURRENT_PROJECT } from "./types";
+import {
+    CREATE_PROJECT,
+    DELETE_PROJECT,
+    GET_PROJECTS,
+    SET_CURRENT_PROJECT,
+} from "./types";
 
-export default (state, action) => {
+const reducer = (state, action) => {
     switch (action.type) {
         case GET_PROJECTS:
             return {
@@ -17,7 +22,17 @@ export default (state, action) => {
                 ...state,
                 currentProject: action.payload,
             };
+        case DELETE_PROJECT:
+            return {
+                ...state,
+                projects: state.projects.filter(
+                    (project) => project.id !== action.payload.id
+                ),
+                currentProject: null,
+            };
         default:
             return state;
     }
 };
+
+export default reducer;

@@ -13,6 +13,7 @@ import {
     UserName,
     MenuIcon,
     CloseIcon,
+    NoProjectsMessage,
 } from "./styled";
 import { useMediaQuery } from "beautiful-react-hooks";
 import projectContext from "../../../../context/projects/context";
@@ -57,14 +58,13 @@ const NewProject = () => {
     );
 };
 
-const ProjectsList = () => {
-    const { projects, getProjects, setCurrentProject } = React.useContext(projectContext);
-
-    React.useEffect(() => {
-        getProjects();
-    }, []);
-
-    if (projects.lenght === 0) return null;
+const ProjectsList = ({ projects, setCurrentProject }) => {
+    if (projects.length === 0)
+        return (
+            <NoProjectsMessage>
+                No projects found. Create one!
+            </NoProjectsMessage>
+        );
 
     return (
         <List>
@@ -81,7 +81,7 @@ const ProjectsList = () => {
     );
 };
 
-const Menu = ({ setShowMenu }) => {
+const Menu = ({ setShowMenu, projects, setCurrentProject }) => {
     return (
         <Aside>
             <Container>
@@ -89,7 +89,10 @@ const Menu = ({ setShowMenu }) => {
                 <Title>Project Manager</Title>
                 <NewProject />
                 <Heading>Your Projects</Heading>
-                <ProjectsList />
+                <ProjectsList
+                    projects={projects}
+                    setCurrentProject={setCurrentProject}
+                />
                 <UserName>User....</UserName>
                 <LogOutButton>Log Out</LogOutButton>
             </Container>
@@ -100,16 +103,37 @@ const Menu = ({ setShowMenu }) => {
 const SideMenu = () => {
     const [showMenu, setShowMenu] = React.useState(false);
     const isSmall = useMediaQuery("(max-width: 768px)");
+    const { projects, currentProject, getProjects, setCurrentProject } =
+        React.useContext(projectContext);
+
+    React.useEffect(() => {
+        getProjects();
+        // eslint-disable-next-line
+    }, []);
+
+    React.useEffect(() => {
+        setShowMenu((state) => !state);
+    }, [currentProject]);
 
     return (
         <React.Fragment>
             {isSmall ? (
                 <>
                     <MenuIcon onClick={() => setShowMenu(true)} />
-                    {showMenu ? <Menu setShowMenu={setShowMenu} /> : null}
+                    {showMenu ? (
+                        <Menu
+                            setShowMenu={setShowMenu}
+                            projects={projects}
+                            setCurrentProject={setCurrentProject}
+                        />
+                    ) : null}
                 </>
             ) : (
-                <Menu />
+                <Menu
+                    setShowMenu={setShowMenu}
+                    projects={projects}
+                    setCurrentProject={setCurrentProject}
+                />
             )}
         </React.Fragment>
     );

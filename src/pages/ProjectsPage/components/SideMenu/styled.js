@@ -34,9 +34,10 @@ export const ListItemButton = styled.button`
     display: block;
     margin: 0 auto 15px auto;
     border: none;
-	&:hover{
-		cursor: pointer;
-	}
+    font-size: 16px;
+    &:hover {
+        cursor: pointer;
+    }
 `;
 
 export const Form = styled.form`
@@ -117,4 +118,8 @@ export const CloseIcon = styled(MdClose)`
     @media (min-width: 768px) {
         display: none;
     }
+`;
+
+export const NoProjectsMessage = styled.p`
+    color: white;
 `;

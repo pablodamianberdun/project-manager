@@ -82,6 +82,8 @@ export const ListItem = styled.li`
 
 export const Flex = styled.div`
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 `;
 
 export const Text = styled.p`
@@ -116,4 +118,15 @@ export const Message = styled.p`
     margin-top: 80px;
     border-radius: 10px;
     text-align: center;
+`;
+
+export const DeleteButton = styled.button`
+    background-color: darkred;
+    color: white;
+    padding: 7px 20px;
+    border: none;
+    border-radius: 10px;
+    :hover {
+        cursor: pointer;
+    }
 `;

@@ -16,6 +16,7 @@ import {
     Text,
     CheckBoxStyles,
     Message,
+    DeleteButton,
 } from "./styled";
 
 const NewTaskForm = () => {
@@ -49,7 +50,7 @@ const NewTaskForm = () => {
     );
 };
 
-const TasksList = ({ projectName }) => {
+const TasksList = ({ currentProject, deleteProject }) => {
     const tasks = [
         { name: "This is a task", status: false },
         { name: "This is another task", status: true },
@@ -57,7 +58,7 @@ const TasksList = ({ projectName }) => {
 
     return (
         <>
-            <Heading>{projectName}</Heading>
+            <Heading>{currentProject.name}</Heading>
             <List>
                 {tasks.map((task, index) => (
                     <ListItem key={index}>
@@ -78,20 +79,26 @@ const TasksList = ({ projectName }) => {
                         </Flex>
                     </ListItem>
                 ))}
+                <DeleteButton onClick={() => deleteProject(currentProject)}>
+                    Delete Project
+                </DeleteButton>
             </List>
         </>
     );
 };
 
 const Main = () => {
-    const { currentProject } = React.useContext(projectContext);
+    const { currentProject, deleteProject } = React.useContext(projectContext);
 
     return (
         <Container>
-            {currentProject.name ? (
+            {currentProject ? (
                 <>
                     <NewTaskForm />
-                    <TasksList projectName={currentProject.name} />
+                    <TasksList
+                        currentProject={currentProject}
+                        deleteProject={deleteProject}
+                    />
                 </>
             ) : (
                 <Message>Select a Project</Message>
