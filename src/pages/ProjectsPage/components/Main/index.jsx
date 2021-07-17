@@ -1,6 +1,7 @@
 import React from "react";
 import { MdCheckCircle, MdRadioButtonUnchecked } from "react-icons/md";
-import projectContext from "../../../../context/projects/context";
+import ProjectContext from "../../../../context/projects/context";
+import tasksContext from "../../../../context/tasks/context";
 import {
     Button,
     Container,
@@ -26,6 +27,8 @@ import {
 } from "./styled";
 
 const NewTaskForm = () => {
+    const { currentProject } = React.useContext(ProjectContext);
+    const { getTasks, createTask } = React.useContext(tasksContext);
     const [task, setTask] = React.useState({
         name: "",
         status: false,
@@ -39,6 +42,14 @@ const NewTaskForm = () => {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (task.name.trim === "") return;
+        task.projectId = currentProject.id;
+        createTask(task);
+        setTask({
+            ...task,
+            name: "",
+        });
+        getTasks(currentProject.id);
     };
 
     return (
@@ -47,6 +58,7 @@ const NewTaskForm = () => {
             <Input
                 name="name"
                 type="text"
+                value={task.name}
                 placeholder="task name"
                 onChange={handleChange}
                 autoComplete="off"
@@ -57,38 +69,39 @@ const NewTaskForm = () => {
 };
 
 const TasksList = ({ currentProject, deleteProject }) => {
-    const tasks = [
-        { name: "This is a task", status: false },
-        { name: "This is another task", status: true },
-    ];
+    const { projectTasks } = React.useContext(tasksContext);
 
     return (
         <>
             <Heading>{currentProject.name}</Heading>
-            <List>
-                {tasks.map((task, index) => (
-                    <ListItem key={index}>
-                        <Flex>
-                            {task.status ? (
-                                <MdCheckCircle style={CheckBoxStyles} />
-                            ) : (
-                                <MdRadioButtonUnchecked
-                                    style={CheckBoxStyles}
-                                />
-                            )}
-                            <Text>{task.name}</Text>
-                        </Flex>
+            {projectTasks.length > 0 ? (
+                <List>
+                    {projectTasks.map((task, index) => (
+                        <ListItem key={index}>
+                            <Flex>
+                                {task.status ? (
+                                    <MdCheckCircle style={CheckBoxStyles} />
+                                ) : (
+                                    <MdRadioButtonUnchecked
+                                        style={CheckBoxStyles}
+                                    />
+                                )}
+                                <Text>{task.name}</Text>
+                            </Flex>
 
-                        <Flex>
-                            <EditIcon />
-                            <DeleteIcon />
-                        </Flex>
-                    </ListItem>
-                ))}
-                <DeleteButton onClick={() => deleteProject(currentProject)}>
-                    Delete Project
-                </DeleteButton>
-            </List>
+                            <Flex>
+                                <EditIcon />
+                                <DeleteIcon />
+                            </Flex>
+                        </ListItem>
+                    ))}
+                    <DeleteButton onClick={() => deleteProject(currentProject)}>
+                        Delete Project
+                    </DeleteButton>
+                </List>
+            ) : (
+                <Message>No tasks. Create a new one!</Message>
+            )}
         </>
     );
 };
@@ -118,7 +131,7 @@ const Dropdown = () => {
 };
 
 const Main = () => {
-    const { currentProject, deleteProject } = React.useContext(projectContext);
+    const { currentProject, deleteProject } = React.useContext(ProjectContext);
 
     return (
         <Container>

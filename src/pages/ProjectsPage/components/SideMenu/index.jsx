@@ -16,6 +16,7 @@ import {
 import { useMediaQuery } from "beautiful-react-hooks";
 import projectContext from "../../../../context/projects/context";
 import { v4 as uuidv4 } from "uuid";
+import tasksContext from "../../../../context/tasks/context";
 
 const NewProject = () => {
     const [project, setProject] = React.useState({
@@ -57,6 +58,7 @@ const NewProject = () => {
 };
 
 const ProjectsList = ({ projects, setCurrentProject }) => {
+    const { getTasks } = React.useContext(tasksContext);
     if (projects.length === 0)
         return (
             <NoProjectsMessage>
@@ -64,13 +66,18 @@ const ProjectsList = ({ projects, setCurrentProject }) => {
             </NoProjectsMessage>
         );
 
+    const handleClick = (project) => {
+        setCurrentProject(project);
+        getTasks(project.id);
+    };
+
     return (
         <List>
             {projects.map((project, index) => (
                 <ListItemButton
                     type="button"
                     key={index}
-                    onClick={() => setCurrentProject(project)}
+                    onClick={() => handleClick(project)}
                 >
                     {project.name}
                 </ListItemButton>
