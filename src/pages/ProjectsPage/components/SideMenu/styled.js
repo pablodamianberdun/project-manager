@@ -3,15 +3,17 @@ import { MdMenu, MdClose } from "react-icons/md";
 
 export const Aside = styled.aside`
     position: fixed;
-	z-index: 9999;
+    z-index: 9999;
 `;
 
 export const Container = styled.div`
     height: 100vh;
     width: 300px;
+    padding-bottom: 60px;
     background-color: ${(props) => props.theme.colors.darkBlue};
     text-align: center;
     position: relative;
+    overflow-y: auto;
 `;
 
 export const Title = styled.h1`
