@@ -15,6 +15,7 @@ export const Container = styled.div`
     }
 `;
 
+// New Task Form
 export const Form = styled.form`
     display: flex;
     align-items: center;
@@ -57,6 +58,7 @@ export const Button = styled.button`
     }
 `;
 
+// Tasks List
 export const Heading = styled.h3`
     margin-bottom: 20px;
 `;
@@ -113,11 +115,10 @@ export const CheckBoxStyles = {
 export const Message = styled.p`
     background-color: ${(props) => props.theme.colors.darkBlue};
     color: white;
-    width: 90%;
-    padding: 10px;
-    margin-top: 80px;
     border-radius: 10px;
     text-align: center;
+    padding: 10px 60px;
+    margin-top: 70px;
 `;
 
 export const DeleteButton = styled.button`
@@ -127,6 +128,51 @@ export const DeleteButton = styled.button`
     border: none;
     border-radius: 10px;
     :hover {
+        cursor: pointer;
+    }
+`;
+
+// Dropdown
+export const DropdownDiv = styled.div`
+    background-color: ${(props) => props.theme.colors.darkBlue};
+    color: white;
+    width: fit-content;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    border-radius: 5px;
+    :hover {
+        cursor: pointer;
+    }
+`;
+
+export const CustomSelect = styled.div`
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    padding: 10px;
+`;
+
+export const UserName = styled.p`
+    margin: 0;
+    padding: 0;
+`;
+
+export const Entity = styled.p`
+    font-size: 10px;
+    margin-left: 5px;
+`;
+
+export const CustomOption = styled.div`
+    text-align: center;
+    display: ${(props) => props.display};
+`;
+
+export const Option = styled.p`
+    margin: 0;
+    padding: 10px;
+    :hover {
+        background-color: ${(props) => props.theme.colors.blue};
         cursor: pointer;
     }
 `;

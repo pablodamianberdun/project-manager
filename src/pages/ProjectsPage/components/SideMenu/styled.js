@@ -3,6 +3,7 @@ import { MdMenu, MdClose } from "react-icons/md";
 
 export const Aside = styled.aside`
     position: fixed;
+	z-index: 9999;
 `;
 
 export const Container = styled.div`
@@ -62,30 +63,6 @@ export const Button = styled.button`
     border: none;
     background-color: ${(props) => props.theme.colors.lightBlue};
     color: white;
-    &:hover {
-        cursor: pointer;
-    }
-`;
-
-export const UserName = styled.p`
-    color: white;
-    position: absolute;
-    bottom: 10px;
-    left: 30px;
-`;
-
-export const LogOutButton = styled.button`
-    background-color: darkred;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    padding: 7px 20px;
-    font-weight: bold;
-
-    position: absolute;
-    bottom: 10px;
-    right: 30px;
-
     &:hover {
         cursor: pointer;
     }

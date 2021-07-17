@@ -8,9 +8,7 @@ import {
     Input,
     List,
     ListItemButton,
-    LogOutButton,
     Title,
-    UserName,
     MenuIcon,
     CloseIcon,
     NoProjectsMessage,
@@ -93,8 +91,6 @@ const Menu = ({ setShowMenu, projects, setCurrentProject }) => {
                     projects={projects}
                     setCurrentProject={setCurrentProject}
                 />
-                <UserName>User....</UserName>
-                <LogOutButton>Log Out</LogOutButton>
             </Container>
         </Aside>
     );

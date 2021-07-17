@@ -17,6 +17,12 @@ import {
     CheckBoxStyles,
     Message,
     DeleteButton,
+    UserName,
+    DropdownDiv,
+    Entity,
+    CustomSelect,
+    CustomOption,
+    Option,
 } from "./styled";
 
 const NewTaskForm = () => {
@@ -87,6 +93,30 @@ const TasksList = ({ currentProject, deleteProject }) => {
     );
 };
 
+const Dropdown = () => {
+    const [showOptions, setShowOptions] = React.useState(false);
+
+    return (
+        <>
+            <DropdownDiv>
+                <CustomSelect onClick={() => setShowOptions(!showOptions)}>
+                    <UserName>User Name ...</UserName>
+                    {!showOptions ? (
+                        <Entity>&#x25BC;</Entity>
+                    ) : (
+                        <Entity>&#x25B2;</Entity>
+                    )}
+                </CustomSelect>
+                <CustomOption display={showOptions ? "block" : "none"}>
+                    <Option>About Us</Option>
+                    <Option>Settings</Option>
+                    <Option>Log Out</Option>
+                </CustomOption>
+            </DropdownDiv>
+        </>
+    );
+};
+
 const Main = () => {
     const { currentProject, deleteProject } = React.useContext(projectContext);
 
@@ -103,6 +133,9 @@ const Main = () => {
             ) : (
                 <Message>Select a Project</Message>
             )}
+            {/* <UserName>User....</UserName>
+            <LogOutButton>Log Out</LogOutButton> */}
+            <Dropdown />
         </Container>
     );
 };
