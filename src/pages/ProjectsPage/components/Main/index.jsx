@@ -2,6 +2,7 @@ import React from "react";
 import { MdCheckCircle, MdRadioButtonUnchecked } from "react-icons/md";
 import ProjectContext from "../../../../context/projects/context";
 import tasksContext from "../../../../context/tasks/context";
+import { v4 as uuidv4 } from "uuid";
 import {
     Button,
     Container,
@@ -28,7 +29,7 @@ import {
 
 const NewTaskForm = () => {
     const { currentProject } = React.useContext(ProjectContext);
-    const { getTasks, createTask } = React.useContext(tasksContext);
+    const { createTask } = React.useContext(tasksContext);
     const [task, setTask] = React.useState({
         name: "",
         status: false,
@@ -44,12 +45,12 @@ const NewTaskForm = () => {
         e.preventDefault();
         if (task.name.trim === "") return;
         task.projectId = currentProject.id;
+        task.id = uuidv4();
         createTask(task);
         setTask({
             ...task,
             name: "",
         });
-        getTasks(currentProject.id);
     };
 
     return (
@@ -69,7 +70,7 @@ const NewTaskForm = () => {
 };
 
 const TasksList = ({ currentProject, deleteProject }) => {
-    const { projectTasks } = React.useContext(tasksContext);
+    const { projectTasks, deleteTask } = React.useContext(tasksContext);
 
     return (
         <>
@@ -91,7 +92,7 @@ const TasksList = ({ currentProject, deleteProject }) => {
 
                             <Flex>
                                 <EditIcon />
-                                <DeleteIcon />
+                                <DeleteIcon onClick={() => deleteTask(task)} />
                             </Flex>
                         </ListItem>
                     ))}
@@ -146,8 +147,6 @@ const Main = () => {
             ) : (
                 <Message>Select a Project</Message>
             )}
-            {/* <UserName>User....</UserName>
-            <LogOutButton>Log Out</LogOutButton> */}
             <Dropdown />
         </Container>
     );

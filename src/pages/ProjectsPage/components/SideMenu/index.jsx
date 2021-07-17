@@ -57,7 +57,7 @@ const NewProject = () => {
     );
 };
 
-const ProjectsList = ({ projects, setCurrentProject }) => {
+const ProjectsList = ({ projects, setCurrentProject, setShowMenu }) => {
     const { getTasks } = React.useContext(tasksContext);
     if (projects.length === 0)
         return (
@@ -69,6 +69,7 @@ const ProjectsList = ({ projects, setCurrentProject }) => {
     const handleClick = (project) => {
         setCurrentProject(project);
         getTasks(project.id);
+        setShowMenu((s) => !s);
     };
 
     return (
@@ -97,6 +98,7 @@ const Menu = ({ setShowMenu, projects, setCurrentProject }) => {
                 <ProjectsList
                     projects={projects}
                     setCurrentProject={setCurrentProject}
+                    setShowMenu={setShowMenu}
                 />
             </Container>
         </Aside>
@@ -104,19 +106,15 @@ const Menu = ({ setShowMenu, projects, setCurrentProject }) => {
 };
 
 const SideMenu = () => {
-    const [showMenu, setShowMenu] = React.useState(false);
+    const [showMenu, setShowMenu] = React.useState(true);
     const isSmall = useMediaQuery("(max-width: 768px)");
-    const { projects, currentProject, getProjects, setCurrentProject } =
+    const { projects, getProjects, setCurrentProject } =
         React.useContext(projectContext);
 
     React.useEffect(() => {
         getProjects();
         // eslint-disable-next-line
     }, []);
-
-    React.useEffect(() => {
-        setShowMenu((state) => !state);
-    }, [currentProject]);
 
     return (
         <React.Fragment>
