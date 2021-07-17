@@ -2,7 +2,7 @@ import React from "react";
 import projectContext from "../projects/context";
 import TasksContext from "./context";
 import TasksReducer from "./reducer";
-import { GET_TASKS, CREATE_TASK, DELETE_TASK } from "./types";
+import { GET_TASKS, CREATE_TASK, DELETE_TASK, STATUS_TASK } from "./types";
 
 const TaskState = (props) => {
     const { currentProject } = React.useContext(projectContext);
@@ -35,6 +35,13 @@ const TaskState = (props) => {
         });
     };
 
+    const statusTask = (task) => {
+        dispatch({
+            type: STATUS_TASK,
+            payload: task,
+        });
+    };
+
     React.useEffect(() => {
         if (!currentProject) return;
         getTasks(currentProject.id);
@@ -48,6 +55,7 @@ const TaskState = (props) => {
                 getTasks,
                 createTask,
                 deleteTask,
+                statusTask,
             }}
         >
             {props.children}

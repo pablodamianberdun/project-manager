@@ -1,4 +1,4 @@
-import { CREATE_TASK, DELETE_TASK, GET_TASKS } from "./types";
+import { CREATE_TASK, DELETE_TASK, GET_TASKS, STATUS_TASK } from "./types";
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -21,7 +21,15 @@ const reducer = (state, action) => {
                     (task) => task.id !== action.payload.id
                 ),
             };
-
+        case STATUS_TASK:
+            return {
+                ...state,
+                tasks: state.tasks.map((task) =>
+                    task.id === action.payload.id
+                        ? { ...task, status: !task.status }
+                        : task
+                ),
+            };
         default:
             return state;
     }

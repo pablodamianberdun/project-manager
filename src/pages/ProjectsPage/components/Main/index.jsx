@@ -70,7 +70,8 @@ const NewTaskForm = () => {
 };
 
 const TasksList = ({ currentProject, deleteProject }) => {
-    const { projectTasks, deleteTask } = React.useContext(tasksContext);
+    const { projectTasks, deleteTask, statusTask } =
+        React.useContext(tasksContext);
 
     return (
         <>
@@ -81,10 +82,14 @@ const TasksList = ({ currentProject, deleteProject }) => {
                         <ListItem key={index}>
                             <Flex>
                                 {task.status ? (
-                                    <MdCheckCircle style={CheckBoxStyles} />
+                                    <MdCheckCircle
+                                        style={CheckBoxStyles}
+                                        onClick={() => statusTask(task)}
+                                    />
                                 ) : (
                                     <MdRadioButtonUnchecked
                                         style={CheckBoxStyles}
+                                        onClick={() => statusTask(task)}
                                     />
                                 )}
                                 <Text>{task.name}</Text>
