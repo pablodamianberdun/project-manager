@@ -2,7 +2,14 @@ import React from "react";
 import projectContext from "../projects/context";
 import TasksContext from "./context";
 import TasksReducer from "./reducer";
-import { GET_TASKS, CREATE_TASK, DELETE_TASK, STATUS_TASK } from "./types";
+import {
+    GET_TASKS,
+    CREATE_TASK,
+    DELETE_TASK,
+    STATUS_TASK,
+    SET_EDIT_TASK,
+    EDIT_TASK,
+} from "./types";
 
 const TaskState = (props) => {
     const { currentProject } = React.useContext(projectContext);
@@ -10,6 +17,7 @@ const TaskState = (props) => {
     const initialState = {
         tasks: [],
         projectTasks: [],
+        taskToEdit: null,
     };
 
     const [state, dispatch] = React.useReducer(TasksReducer, initialState);
@@ -42,6 +50,20 @@ const TaskState = (props) => {
         });
     };
 
+    const setTaskToEdit = (task) => {
+        dispatch({
+            type: SET_EDIT_TASK,
+            payload: task,
+        });
+    };
+
+    const editTask = (task) => {
+        dispatch({
+            type: EDIT_TASK,
+            payload: task,
+        });
+    };
+
     React.useEffect(() => {
         if (!currentProject) return;
         getTasks(currentProject.id);
@@ -52,10 +74,13 @@ const TaskState = (props) => {
             value={{
                 tasks: state.tasks,
                 projectTasks: state.projectTasks,
+                taskToEdit: state.taskToEdit,
                 getTasks,
                 createTask,
                 deleteTask,
                 statusTask,
+                setTaskToEdit,
+                editTask,
             }}
         >
             {props.children}

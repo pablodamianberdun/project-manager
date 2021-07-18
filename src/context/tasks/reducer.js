@@ -1,4 +1,11 @@
-import { CREATE_TASK, DELETE_TASK, GET_TASKS, STATUS_TASK } from "./types";
+import {
+    CREATE_TASK,
+    DELETE_TASK,
+    EDIT_TASK,
+    GET_TASKS,
+    SET_EDIT_TASK,
+    STATUS_TASK,
+} from "./types";
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -29,6 +36,19 @@ const reducer = (state, action) => {
                         ? { ...task, status: !task.status }
                         : task
                 ),
+            };
+        case SET_EDIT_TASK:
+            return {
+                ...state,
+                taskToEdit: action.payload,
+            };
+        case EDIT_TASK:
+            return {
+                ...state,
+                tasks: state.tasks.map((task) =>
+                    task.id === action.payload.id ? action.payload : task
+                ),
+                taskToEdit: null,
             };
         default:
             return state;

@@ -29,11 +29,20 @@ import {
 
 const NewTaskForm = () => {
     const { currentProject } = React.useContext(ProjectContext);
-    const { createTask } = React.useContext(tasksContext);
+    const { createTask, taskToEdit, editTask } = React.useContext(tasksContext);
     const [task, setTask] = React.useState({
         name: "",
         status: false,
     });
+
+    React.useEffect(() => {
+        if (taskToEdit) setTask(taskToEdit);
+        else
+            setTask({
+                name: "",
+                status: false,
+            });
+    }, [taskToEdit]);
 
     const handleChange = (e) => {
         setTask({
@@ -44,6 +53,12 @@ const NewTaskForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (task.name.trim === "") return;
+
+        if (taskToEdit) {
+            editTask(task);
+            return;
+        }
+
         task.projectId = currentProject.id;
         task.id = uuidv4();
         createTask(task);
@@ -55,7 +70,7 @@ const NewTaskForm = () => {
 
     return (
         <Form onSubmit={handleSubmit}>
-            <Label>New Task:</Label>
+            <Label>{taskToEdit ? "Edit Task:" : "New Task:"}</Label>
             <Input
                 name="name"
                 type="text"
@@ -64,14 +79,18 @@ const NewTaskForm = () => {
                 onChange={handleChange}
                 autoComplete="off"
             />
-            <Button type="submit">Add</Button>
+            <Button type="submit">{taskToEdit ? "Edit" : "Add"}</Button>
         </Form>
     );
 };
 
 const TasksList = ({ currentProject, deleteProject }) => {
-    const { projectTasks, deleteTask, statusTask } =
+    const { projectTasks, deleteTask, statusTask, setTaskToEdit } =
         React.useContext(tasksContext);
+
+    const handleEdit = (task) => {
+        setTaskToEdit(task);
+    };
 
     return (
         <>
@@ -96,7 +115,7 @@ const TasksList = ({ currentProject, deleteProject }) => {
                             </Flex>
 
                             <Flex>
-                                <EditIcon />
+                                <EditIcon onClick={() => handleEdit(task)} />
                                 <DeleteIcon onClick={() => deleteTask(task)} />
                             </Flex>
                         </ListItem>
