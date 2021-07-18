@@ -169,7 +169,7 @@ const Main = () => {
                     />
                 </>
             ) : (
-                <Message>Select a Project</Message>
+                <Message mt="70px">Select a Project</Message>
             )}
             <Dropdown />
         </Container>

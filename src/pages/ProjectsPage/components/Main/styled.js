@@ -118,13 +118,14 @@ export const Message = styled.p`
     border-radius: 10px;
     text-align: center;
     padding: 10px 60px;
-    margin-top: 70px;
+    margin-top: ${(props) => props.mt};
 `;
 
 export const DeleteButton = styled.button`
     background-color: darkred;
     color: white;
     padding: 7px 20px;
+    margin-bottom: 30px;
     border: none;
     border-radius: 10px;
     :hover {
@@ -137,7 +138,7 @@ export const DropdownDiv = styled.div`
     background-color: ${(props) => props.theme.colors.darkBlue};
     color: white;
     width: fit-content;
-    position: fixed;
+    position: absolute;
     top: 10px;
     right: 10px;
     border-radius: 5px;

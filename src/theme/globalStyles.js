@@ -12,6 +12,9 @@ const globalStyle = createGlobalStyle`
 		padding: 0;
 		font-family: 'Raleway', sans-serif;
 	}
+	body {
+		position: relative;
+	}
 `;
 
 export default globalStyle;
